@@ -31,7 +31,7 @@ public class RobotContainer {
     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
     Supplier<Double> joystickInput = ()->m_driverController.getRawAxis(0);
 
-
+    runMotorSubsystem.setDefaultCommand(getAutonomousCommand());
     //TODO: Instantiate RunMotorCommand and set default command here
     //WRITE CODE HERE!!
 
