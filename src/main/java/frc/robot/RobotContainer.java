@@ -34,7 +34,8 @@ public class RobotContainer {
     runMotorSubsystem.setDefaultCommand(getAutonomousCommand());
     //TODO: Instantiate RunMotorCommand and set default command here
     //WRITE CODE HERE!!
-
+    RunMotorCommand motorCommand = new RunMotorCommand(runMotorSubsystem, joystickInput);
+    runMotorSubsystem.setDefaultCommand(motorCommand);
   }
 
   public Command getAutonomousCommand() {

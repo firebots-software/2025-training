@@ -38,7 +38,7 @@ public class RunMotorCommand extends Command {
   @Override
   public void execute() {
     //TODO: use the `runMotor` method in `RunMotorSubsystem`
-
+    m_subsystem.runMotor(speed.get());
   }
 
   // Called once the command ends or is interrupted.

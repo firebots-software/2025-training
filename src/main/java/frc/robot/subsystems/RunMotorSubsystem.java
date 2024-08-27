@@ -19,7 +19,7 @@ public class RunMotorSubsystem extends SubsystemBase {
 
   private RunMotorSubsystem() {
     //TODO: Initalize the motor on port 0
-
+    motor = new TalonFX(0);
   }
   // This is a singleton pattern. Ensures only one instance of `RunMotorSubsystem` exists!
   // See if you can understand how it works!
@@ -30,9 +30,9 @@ public class RunMotorSubsystem extends SubsystemBase {
     return instance;
   }
 
-  public void runMotor(double speed){
+  public void runMotor(double speed) {
     //TODO: set motor speed and log speed
-
+    SmartDashboard.putNumber("motor speed", speed);
   }
 
   @Override
