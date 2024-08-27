@@ -32,6 +32,7 @@ public class RunMotorSubsystem extends SubsystemBase {
 
   public void runMotor(double speed) {
     //TODO: set motor speed and log speed
+    motor.set(speed);
     SmartDashboard.putNumber("motor speed", speed);
   }
 
