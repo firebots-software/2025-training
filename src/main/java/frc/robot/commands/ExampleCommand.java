@@ -4,27 +4,21 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.RunMotorSubsystem;
-
-import java.util.function.Supplier;
-
+import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class RunMotorCommand extends Command {
+public class ExampleCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final RunMotorSubsystem m_subsystem;
-  //We will learn about Suppliers next time!
-  private Supplier<Double> speed;
+  private final XRPDrivetrain m_subsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RunMotorCommand(RunMotorSubsystem subsystem, Supplier<Double> speed) {
+  public ExampleCommand(XRPDrivetrain subsystem) {
     m_subsystem = subsystem;
-    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -32,19 +26,19 @@ public class RunMotorCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: use the `runMotor` method in `RunMotorSubsystem`
-
+    m_subsystem.runMotor1();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-        m_subsystem.runMotor(0);
+    m_subsystem.stopMotor1();
   }
 
   // Returns true when the command should end.

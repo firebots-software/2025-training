@@ -4,42 +4,44 @@
 
 package frc.robot;
 
-import frc.robot.commands.RunMotorCommand; //You might need this import!
-import frc.robot.subsystems.RunMotorSubsystem;
-
-import java.util.function.Supplier;
-
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
- * This class is where the bulk of the robot will be declared. We will store all our subsystem instances here!
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final RunMotorSubsystem runMotorSubsystem = RunMotorSubsystem.getInstance();
+  // The robot's subsystems and commands are defined here...
+  private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
 
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(0);
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_xrpDrivetrain);
 
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    
-    configureBindings();
+    // Configure the button bindings
+    configureButtonBindings();
   }
 
+  /**
+   * Use this method to define your button->command mappings. Buttons can be created by
+   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   */
+  private void configureButtonBindings() {}
 
-  private void configureBindings() {
-    //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
-    Supplier<Double> joystickInput = ()->m_driverController.getRawAxis(0);
-
-    runMotorSubsystem.setDefaultCommand(getAutonomousCommand());
-    //TODO: Instantiate RunMotorCommand and set default command here
-    //WRITE CODE HERE!!
-
-  }
-
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
   public Command getAutonomousCommand() {
-    return new Command() {
-      
-    };
+    // An ExampleCommand will run in autonomous
+    return m_autoCommand;
   }
 }
