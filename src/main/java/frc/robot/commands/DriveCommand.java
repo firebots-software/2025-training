@@ -8,18 +8,22 @@ import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends Command {
+public class DriveCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final XRPDrivetrain m_subsystem;
+  private final XRPDrivetrain xrp;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(XRPDrivetrain subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveCommand(XRPDrivetrain subsystem) {
+    xrp = subsystem;
+    //TODO: Write the constructor.
+    //Hint: We need suppliers as input
+
+    //We add subsystem requirements since we dont want multiple commands using the same subsystems to operate
+    //We only have one command here, so don't worry about it!
     addRequirements(subsystem);
   }
 
@@ -32,6 +36,8 @@ public class ExampleCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //TODO: Use suppliers to move the robot through the subsystem
+    //You first need to make a function in the `XRPDrivetrain.java` subsystem to move the robot
   }
 
   // Called once the command ends or is interrupted.
