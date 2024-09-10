@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import java.util.function.Supplier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,12 +20,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
+  private Supplier<Double> joystickY; 
+  private Supplier<Double> joystickX;
+  
 
-  private final DriveCommand m_autoCommand = new DriveCommand(m_xrpDrivetrain);
-  private Joystick driverPS4;
+
+  private DriveCommand m_autoCommand; 
+  private Joystick driverPS4;                                                                                                            ;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driverPS4 = new Joystick(0);
+    joystickY = () -> driverPS4.getRawAxis(1);
+    joystickX = () -> driverPS4.getRawAxis(0); 
+    
+    m_autoCommand = new DriveCommand(m_xrpDrivetrain, joystickY, joystickX);
+    
     //TODO: Hint! axis 1 is W/S and axis 0 is A/S
     // Configure the button bindings
     configureBindings();
@@ -37,9 +47,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureBindings() {
+    
     //TODO: Use the joystick `driverPS4` and the command you wrote to move the robot!
     //Hint: You need to use a Supplier here
-
+    m_xrpDrivetrain.setDefaultCommand(m_autoCommand);
   }
 
   /**

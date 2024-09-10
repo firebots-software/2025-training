@@ -21,12 +21,28 @@ public class XRPDrivetrain extends SubsystemBase {
 
   /** Creates a new XRPDrivetrain. */
   public XRPDrivetrain() {
-
+    m_leftMotor.setInverted(true);
   }
 
-  public void arcadeDrive() {
+  public void arcadeDrive(double number, double number2) {
     //TODO: The Goal is to use WASD to move the robot forward/backwards and turn left/right
     //Hint: You need inputs to move the motors!
+    if(number != 0){
+      m_leftMotor.set(number);
+      m_rightMotor.set(number);
+    }
+    if(number2 != 0){
+      m_leftMotor.set(-number2);
+      m_rightMotor.set(number2);
+    }
+if(getDistanceMeters() <= 0.25){
+  m_leftMotor.set(0);
+  m_rightMotor.set(0);
+}
+  
+  }
+  public double getDistanceMeters(){
+return distanceSensor.getDistanceMeters();
   }
 
   @Override
