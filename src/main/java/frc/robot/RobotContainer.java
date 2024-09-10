@@ -32,9 +32,8 @@ public class RobotContainer {
     Supplier<Double> joystickInput = ()->m_driverController.getRawAxis(0);
 
     runMotorSubsystem.setDefaultCommand(getAutonomousCommand());
-    //TODO: Instantiate RunMotorCommand and set default command here
     //WRITE CODE HERE!!
-
+    RunMotorCommand command = new RunMotorCommand(runMotorSubsystem, joystickInput);
   }
 
   public Command getAutonomousCommand() {

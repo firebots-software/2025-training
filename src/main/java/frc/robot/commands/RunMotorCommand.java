@@ -37,8 +37,7 @@ public class RunMotorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: use the `runMotor` method in `RunMotorSubsystem`
-
+    m_subsystem.runMotor(5);
   }
 
   // Called once the command ends or is interrupted.
