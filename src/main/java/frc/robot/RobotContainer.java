@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.commands.RunMotorCommand; //You might need this import!
-import frc.robot.subsystems.RunMotorSubsystem;
+import frc.robot.commands.ShootCommand; //You might need this import!
+import frc.robot.subsystems.ShooterSubsystem;
 
 import java.util.function.Supplier;
 
@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  * This class is where the bulk of the robot will be declared. We will store all our subsystem instances here!
  */
 public class RobotContainer {
-  private final RunMotorSubsystem runMotorSubsystem = RunMotorSubsystem.getInstance();
+  private final ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
 
-  private final CommandXboxController m_driverController =
+  private final CommandXboxController controller =
       new CommandXboxController(0);
 
   public RobotContainer() {
@@ -29,15 +29,13 @@ public class RobotContainer {
 
   private void configureBindings() {
     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
-    Supplier<Double> joystickInput = ()->m_driverController.getRawAxis(0);
-
-    runMotorSubsystem.setDefaultCommand(getAutonomousCommand());
-    //TODO: Instantiate RunMotorCommand and set default command here
+    //TODO: Instantiate the Command here and set speed based on controller!
     //WRITE CODE HERE!!
 
   }
 
   public Command getAutonomousCommand() {
+    //IGNORE AUTONOMOUS COMMAND (NOT NEEDED FOR THIS PROJECT)
     return new Command() {
       
     };
