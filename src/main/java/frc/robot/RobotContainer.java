@@ -31,7 +31,7 @@ public class RobotContainer {
     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
     //TODO: Instantiate the Command here and set speed based on controller!
     //WRITE CODE HERE!!
-
+    ShootCommand shootCmd = new ShootCommand(shooterSubsystem, () -> controller.getRawAxis(0));
   }
 
   public Command getAutonomousCommand() {
