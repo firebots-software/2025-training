@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
@@ -19,14 +21,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
-
-  private final DriveCommand m_autoCommand = new DriveCommand(m_xrpDrivetrain);
+  Supplier<Double> joystickValX;
+  Supplier<Double> joystickValY;
+  private final DriveCommand m_autoCommand;
   private Joystick driverPS4;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driverPS4 = new Joystick(0);
     //TODO: Hint! axis 1 is W/S and axis 0 is A/S
     // Configure the button bindings
+    joystickValX = () -> driverPS4.getRawAxis(1);
+    joystickValY = () -> driverPS4.getRawAxis(0);
+
+    m_autoCommand= new DriveCommand(m_xrpDrivetrain, joystickValX, joystickValY);
     configureBindings();
   }
 
@@ -37,9 +44,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureBindings() {
-    //TODO: Use the joystick `driverPS4` and the command you wrote to move the robot!
-    //Hint: You need to use a Supplier here
-
+    m_xrpDrivetrain.setDefaultCommand(m_autoCommand);
   }
 
   /**
