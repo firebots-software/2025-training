@@ -17,12 +17,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   private final ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
+  private Supplier<Double> joystickSpeed;
 
   private final CommandXboxController controller =
       new CommandXboxController(0);
 
   public RobotContainer() {
-    
+    joystickSpeed = () -> controller.getRawAxis(0);
     configureBindings();
   }
 
@@ -31,7 +32,8 @@ public class RobotContainer {
     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
     //TODO: Instantiate the Command here and set speed based on controller!
     //WRITE CODE HERE!!
-
+    ShootCommand shooter = new ShootCommand(joystickSpeed, shooterSubsystem);
+    shooterSubsystem.setDefaultCommand(shooter);
   }
 
   public Command getAutonomousCommand() {

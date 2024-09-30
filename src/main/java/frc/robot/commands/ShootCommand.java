@@ -13,8 +13,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 /** An example command that uses an example subsystem. */
 public class ShootCommand extends Command {
 
-  public ShootCommand() {
-    //TODO: What inputs do you need?
+  private Supplier<Double> speed;
+  private static ShooterSubsystem shooter; 
+
+  public ShootCommand(Supplier<Double> speed, ShooterSubsystem shooter) {
+    this.speed = speed;
+    this.shooter = shooter;
     addRequirements();
   }
 
@@ -26,14 +30,14 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: Run the shooters
+    shooter.shoot(speed.get());
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-      //TODO: What should you do on end?
+    shooter.stop();    
   }
 
   // Returns true when the command should end.
