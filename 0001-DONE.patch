@@ -1,0 +1,142 @@
+From 553bd53d8f0072e7d2cbde93bec72c01510fc246 Mon Sep 17 00:00:00 2001
+From: Tim Shmidt <timsh007@gmail.com>
+Date: Sun, 29 Sep 2024 17:40:05 -0700
+Subject: [PATCH] DONE
+
+---
+ src/main/java/frc/robot/RobotContainer.java   |  4 +--
+ .../java/frc/robot/commands/ShootCommand.java | 16 ++++++---
+ .../robot/subsystems/ShooterSubsystem.java    | 34 ++++++++++++-------
+ 3 files changed, 35 insertions(+), 19 deletions(-)
+
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 9c0f96e..52f3cd8 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -29,9 +29,9 @@ public class RobotContainer {
+ 
+   private void configureBindings() {
+     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
+-    //TODO: Instantiate the Command here and set speed based on controller!
++    //Instantiate the Command here and set speed based on controller!
+     //WRITE CODE HERE!!
+-
++    ShootCommand shootCommand = new ShootCommand(shooterSubsystem, () -> controller.getRawAxis(0));
+   }
+ 
+   public Command getAutonomousCommand() {
+diff --git a/src/main/java/frc/robot/commands/ShootCommand.java b/src/main/java/frc/robot/commands/ShootCommand.java
+index 7cf5cb1..fb2bd13 100644
+--- a/src/main/java/frc/robot/commands/ShootCommand.java
++++ b/src/main/java/frc/robot/commands/ShootCommand.java
+@@ -13,8 +13,13 @@ import edu.wpi.first.wpilibj2.command.Command;
+ /** An example command that uses an example subsystem. */
+ public class ShootCommand extends Command {
+ 
+-  public ShootCommand() {
+-    //TODO: What inputs do you need?
++  private static ShooterSubsystem shooterSubsystem;
++  private Supplier<Double> speedSupplier;
++
++  public ShootCommand(ShooterSubsystem shooterSub, Supplier<Double> speedSup) {
++    //What inputs do you need?
++    shooterSubsystem = shooterSub;
++    speedSupplier = speedSup;
+     addRequirements();
+   }
+ 
+@@ -26,14 +31,15 @@ public class ShootCommand extends Command {
+   // Called every time the scheduler runs while the command is scheduled.
+   @Override
+   public void execute() {
+-    //TODO: Run the shooters
+-
++    //Run the shooters
++    shooterSubsystem.shoot(speedSupplier.get());
+   }
+ 
+   // Called once the command ends or is interrupted.
+   @Override
+   public void end(boolean interrupted) {
+-      //TODO: What should you do on end?
++      //What should you do on end?
++      shooterSubsystem.stop();
+   }
+ 
+   // Returns true when the command should end.
+diff --git a/src/main/java/frc/robot/subsystems/ShooterSubsystem.java b/src/main/java/frc/robot/subsystems/ShooterSubsystem.java
+index 6a7039b..2b21486 100644
+--- a/src/main/java/frc/robot/subsystems/ShooterSubsystem.java
++++ b/src/main/java/frc/robot/subsystems/ShooterSubsystem.java
+@@ -4,19 +4,25 @@
+ 
+ package frc.robot.subsystems;
+ 
++import com.ctre.phoenix6.hardware.TalonFX;
++
++import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ 
+ 
+ public class ShooterSubsystem extends SubsystemBase {
+ 
+-  //TODO: The motors should be declared here!
+-  
++  //The motors should be declared here!
++  private final TalonFX m_shooterMotor1;
++  private final TalonFX m_shooterMotor2;
+   private static ShooterSubsystem instance;
++  private double motorSpeed;
+ 
+ 
+   private ShooterSubsystem() {
+-    //TODO: Initalize the shooting motors to ports 34, 35
+-
++    //Initalize the shooting motors to ports 34, 35
++    m_shooterMotor1 = new TalonFX(34);
++    m_shooterMotor2 = new TalonFX(35);
+   }
+   // This is a singleton pattern. Ensures only one instance of `RunMotorSubsystem` exists!
+   // See if you can understand how it works!
+@@ -27,26 +33,30 @@ public class ShooterSubsystem extends SubsystemBase {
+     return instance;
+   }
+ 
+-  public void shoot(){
+-    //TODO: set motor speed (what inputs do you need if any?)
++  public void shoot(double speed){
++    //set motor speed (what inputs do you need if any?)
+     //Note that you have 2 shooter motors!
+-
++    this.motorSpeed = speed;
++    m_shooterMotor1.set(speed);
++    m_shooterMotor2.set(-speed);
+   }
+ 
+   public void stop(){
+-    //TODO: stop motors (what inputs do you need if any?)
++    //stop motors (what inputs do you need if any?)
+     //Note that you have 2 shooter motors!
+-    
++    m_shooterMotor1.set(0);
++    m_shooterMotor2.set(0);
+   }
+ 
+   @Override
+   public void periodic() {
+-    //TODO: log motor speeds (same as below)
++    //log motor speeds (same as below)
++    SmartDashboard.putNumber("ShooterSpeed", motorSpeed);
+   }
+ 
+   @Override
+   public void simulationPeriodic() {
+-    //TODO: log motor speeds (same as above)
+-
++    //log motor speeds (same as above)
++    SmartDashboard.putNumber("ShooterSpeed", motorSpeed);
+   }
+ }
+-- 
+2.39.5 (Apple Git-154)
+
