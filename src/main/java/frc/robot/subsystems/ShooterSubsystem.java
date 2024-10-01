@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import dev.doglog.DogLog; 
 
 public class ShooterSubsystem extends SubsystemBase {
 
@@ -52,14 +52,17 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Shooter1 speed:", shooter1.get());
+    
   }
 
 
   @Override
   public void simulationPeriodic() {
     //TODO: log motor speeds (same as above)
+    SmartDashboard.putNumber("Shooter1 speed:", shooter1.get());
     SmartDashboard.putNumber("Shooter2 speed:", shooter2.get());
+    DogLog.log("Shooter1", shooter1.get());
+     DogLog.log("Shooter2", shooter2.get());
   }
 }
 
