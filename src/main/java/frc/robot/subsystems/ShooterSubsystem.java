@@ -4,18 +4,23 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class ShooterSubsystem extends SubsystemBase {
-
-  //TODO: The motors should be declared here!
+    TalonFX leftMotor;
+    TalonFX rightMotor;
   
   private static ShooterSubsystem instance;
 
 
   private ShooterSubsystem() {
-    //TODO: Initalize the shooting motors to ports 34, 35
+    leftMotor = new TalonFX(34);
+    rightMotor = new TalonFX(35);
+    rightMotor.setInverted(true);
 
   }
   // This is a singleton pattern. Ensures only one instance of `RunMotorSubsystem` exists!
@@ -27,26 +32,28 @@ public class ShooterSubsystem extends SubsystemBase {
     return instance;
   }
 
-  public void shoot(){
-    //TODO: set motor speed (what inputs do you need if any?)
+  public void shoot(double speeeeeeed){
     //Note that you have 2 shooter motors!
-
+    leftMotor.set(speeeeeeed);
+    rightMotor.set(speeeeeeed);
   }
 
   public void stop(){
-    //TODO: stop motors (what inputs do you need if any?)
     //Note that you have 2 shooter motors!
-    
+    leftMotor.set(0);
+    rightMotor.set(0);
   }
 
   @Override
   public void periodic() {
-    //TODO: log motor speeds (same as below)
+    SmartDashboard.putNumber("Left Shooter Speed", leftMotor.get());
+    SmartDashboard.putNumber("Right Shooter Speed", rightMotor.get());
   }
 
   @Override
   public void simulationPeriodic() {
-    //TODO: log motor speeds (same as above)
+    SmartDashboard.putNumber("Left Shooter Speed", leftMotor.get());
+    SmartDashboard.putNumber("Right Shooter Speed", rightMotor.get());
 
   }
 }

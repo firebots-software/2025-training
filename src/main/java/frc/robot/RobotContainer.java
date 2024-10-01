@@ -21,6 +21,8 @@ public class RobotContainer {
   private final CommandXboxController controller =
       new CommandXboxController(0);
 
+  private Supplier<Double> joystikSupplier = () -> controller.getRawAxis(0);
+
   public RobotContainer() {
     
     configureBindings();
@@ -29,8 +31,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
-    //TODO: Instantiate the Command here and set speed based on controller!
     //WRITE CODE HERE!!
+    shooterSubsystem.setDefaultCommand(new ShootCommand(joystikSupplier, shooterSubsystem));
 
   }
 
