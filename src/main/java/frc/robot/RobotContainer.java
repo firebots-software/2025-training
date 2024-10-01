@@ -9,6 +9,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 import java.util.function.Supplier;
 
+import dev.doglog.DogLog;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -31,6 +32,7 @@ public class RobotContainer {
     //We will learn about Suppliers next time! Make sure to pass this as a parameter to the command!
     //TODO: Instantiate the Command here and set speed based on controller!
     //WRITE CODE HERE!!
+    DogLog.log("daniel-shoot-hw/controller", controller.getRawAxis(0));
     ShootCommand shootCmd = new ShootCommand(shooterSubsystem, () -> controller.getRawAxis(0));
   }
 

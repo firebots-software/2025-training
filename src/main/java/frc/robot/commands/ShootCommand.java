@@ -8,6 +8,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 import java.util.function.Supplier;
 
+import dev.doglog.DogLog;
+//import dev.doglog.DogLogOptions;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
@@ -33,6 +35,7 @@ public class ShootCommand extends Command {
   public void execute() {
     //TODO: Run the shooters
     shooterSubsystem.shoot(speedSupplier.get());
+    DogLog.log("daniel-shoot-hw/supplier", this.speedSupplier.get());
   }
 
   // Called once the command ends or is interrupted.

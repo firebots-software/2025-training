@@ -8,6 +8,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import dev.doglog.DogLog;
+//import dev.doglog.DogLogOptions;
 
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -52,12 +54,14 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     //TODO: log motor speeds (same as below)
-    SmartDashboard.putNumber("Shooter speed", this.speed);
+    //SmartDashboard.putNumber("Shooter speed", this.speed);
+    DogLog.log("daniel-shoot-hw/speed", this.speed);
   }
 
   @Override
   public void simulationPeriodic() {
     //TODO: log motor speeds (same as above)
-    SmartDashboard.putNumber("Shooter speed", this.speed);
+    //SmartDashboard.putNumber("Shooter speed", this.speed);
+    DogLog.log("daniel-shoot-hw/speed", this.speed);
   }
 }
