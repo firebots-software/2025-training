@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import dev.doglog.DogLog;
+import dev.doglog.DogLogOptions;
 
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -26,6 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_leftShooterMotor = new TalonFX(34);
     m_rightShooterMotor = new TalonFX(35);
 
+    DogLog.setOptions(new DogLogOptions().withNtPublish(true));
   }
 
   

@@ -20,7 +20,7 @@ public class ShootCommand extends Command {
     m_shooter = shooter;
     this.speed = speed;
 
-    addRequirements();
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
