@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.14630194075471,
-      "y": 6.509418597545758
+      "x": 2.0,
+      "y": 7.0
     },
     "rotation": 0
   },
@@ -11,12 +11,6 @@
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Normal test 1"
-          }
-        },
         {
           "type": "named",
           "data": {
@@ -26,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Normal test 2"
+            "pathName": "Line line numuber 9"
           }
         }
       ]
