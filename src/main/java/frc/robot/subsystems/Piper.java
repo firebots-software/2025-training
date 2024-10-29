@@ -18,6 +18,7 @@ public class Piper extends SubsystemBase {
   private TalonFX preshooterMotor; 
   private TalonFX intakeMotor; 
   private DigitalInput noteSwitch;
+  private static Piper piperInstance;
   
   public Piper() {
     // Shooter
@@ -57,7 +58,7 @@ public class Piper extends SubsystemBase {
   }
   
   //Shooter Functions
-  public void spinShooter(int speed) {
+  public void spinShooter(double speed) {
 
     VelocityVoltage VV = new VelocityVoltage(speed * 1);
 ;
@@ -72,7 +73,7 @@ public class Piper extends SubsystemBase {
   }
 
   // PreShooter Functions
-  public void spinPreShooter(int speed) {
+  public void spinPreShooter(double speed) {
 
     VelocityVoltage VV = new VelocityVoltage(speed * 1);
 ;
@@ -84,7 +85,7 @@ public class Piper extends SubsystemBase {
   }
 
   //Intake Functions
-  public void spinIntake(int speed) {
+  public void spinIntake(double speed) {
     VelocityVoltage VV = new VelocityVoltage(speed);
 ;
     intakeMotor.setControl(VV);
@@ -93,7 +94,8 @@ public class Piper extends SubsystemBase {
   public void stopIntake() {
     intakeMotor.stopMotor();
   }
-,
+
+
   
   /**
    * Example command factory method.
@@ -122,10 +124,18 @@ public class Piper extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    DogLog.log();
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+  public static Piper getInstance() {
+    if(piperInstance == null){
+      piperInstance = new Piper();
+    }
+
+    return piperInstance;
   }
 }
