@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.9393738417106465,
-      "y": 4.949925446147189
+      "x": 2.14630194075471,
+      "y": 6.509418597545758
     },
-    "rotation": 174.03969757344777
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Line line numuber 9"
+            "pathName": "Normal test 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Ratchette"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GET FIRED UP"
+            "pathName": "Normal test 2"
           }
         }
       ]

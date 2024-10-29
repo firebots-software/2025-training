@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExampleSubsystem extends SubsystemBase {
+  private static ExampleSubsystem instance;
   /** Creates a new ExampleSubsystem. */
   public ExampleSubsystem() {}
 
@@ -23,6 +24,13 @@ public class ExampleSubsystem extends SubsystemBase {
         () -> {
           /* one-time action goes here */
         });
+  }
+
+  public static ExampleSubsystem getInstance() {
+    if (instance == null) {
+      instance = new ExampleSubsystem();
+    }
+    return instance;
   }
 
   /**
