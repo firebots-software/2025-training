@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 import frc.robot.subsystems.Piper;
+import dev.doglog.DogLog;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */

@@ -6,6 +6,7 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import dev.doglog.DogLog;
+import dev.doglog.DogLogOptions; 
 
 public class LoggedTalonFX extends TalonFX{
 

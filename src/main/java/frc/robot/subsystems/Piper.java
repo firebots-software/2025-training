@@ -92,6 +92,7 @@ public class Piper extends SubsystemBase {
     VelocityVoltage VV = new VelocityVoltage(speed);
 ;
     intakeMotor.setControl(VV);
+  
   }
 
   public void stopIntake() {
@@ -126,10 +127,13 @@ public class Piper extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    DogLog.log();
+    DogLog.log(intakeMotor,this.getSpeed()).getValue();
   }
 
+  
+  private int getSpeed(int Speed) {
+    return Speed; 
+  }
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
