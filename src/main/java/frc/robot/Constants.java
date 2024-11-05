@@ -9,6 +9,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.Pooer.ShooterType;
@@ -265,6 +266,72 @@ public final class Constants {
       }
     }
   }
+
+  public static class Landmarks {
+    // Landmarks on the Blue side can be reflected to show the respective locations on the Blue side
+    // public static final Pose2d STAGESIDE_NOTE_LOCATION = new Pose2d(2.8956, 4, new Rotation2d());
+    // public static final Pose2d MIDDLE_NOTE_LOCATION = new Pose2d(2.8956, 5.5, new Rotation2d());
+    // public static final Pose2d AMPSIDE_NOTE_LOCATION = new Pose2d(2.8956, 7, new Rotation2d());
+    public static final Pose2d SUBWOOFER_LOCATION = new Pose2d(0.6, 5.7, new Rotation2d());
+
+    public static final Pose2d STAGESIDE_NOTE_LOCATION =
+        new Pose2d(
+            2.8956,
+            4.0522,
+            SUBWOOFER_LOCATION
+                .getTranslation()
+                .minus(new Translation2d(2.8956, 4.0522))
+                .rotateBy(Rotation2d.fromRadians(Math.PI))
+                .getAngle());
+    public static final Pose2d MIDDLE_NOTE_LOCATION =
+        new Pose2d(
+            2.8956,
+            5.5,
+            SUBWOOFER_LOCATION
+                .getTranslation()
+                .minus(new Translation2d(2.8956, 5.5))
+                .rotateBy(Rotation2d.fromRadians(Math.PI))
+                .getAngle());
+    public static final Pose2d AMPSIDE_NOTE_LOCATION =
+        new Pose2d(
+            2.8956,
+            6.9478,
+            SUBWOOFER_LOCATION
+                .getTranslation()
+                .minus(new Translation2d(2.8956, 6.9478))
+                .rotateBy(Rotation2d.fromRadians(Math.PI))
+                .getAngle());
+    public static final double CENTER_LINE_LOCATION = 8.27;
+    public static final Pose2d MIDLINE_FROM_AMP1_NOTE_LOCATION =
+        new Pose2d(CENTER_LINE_LOCATION, 7.43, new Rotation2d());
+    public static final Pose2d MIDLINE_FROM_AMP2_NOTE_LOCATION =
+        new Pose2d(CENTER_LINE_LOCATION, 5.76, new Rotation2d());
+    public static final Pose2d MIDLINE_FROM_AMP3_NOTE_LOCATION =
+        new Pose2d(CENTER_LINE_LOCATION, 4.09, new Rotation2d());
+    public static final Pose2d MIDLINE_FROM_AMP4_NOTE_LOCATION =
+        new Pose2d(CENTER_LINE_LOCATION, 2.42, new Rotation2d());
+    public static final Pose2d MIDLINE_FROM_AMP5_NOTE_LOCATION =
+        new Pose2d(CENTER_LINE_LOCATION, 0.75, new Rotation2d());
+
+    public static final class Speaker {
+      public static final double HEIGHT_INCHES = 78.0;
+      public static final double HEIGHT_METERS = Units.inchesToMeters(HEIGHT_INCHES);
+      public static final Pose2d POSE = new Pose2d(new Translation2d(0, 5.5), new Rotation2d(0));
+    }
+
+    public static final class Amp {
+      public static final double AMP_HEIGHT_INCHES = 35.0;
+      public static final double AMP_HEIGHT_METERS = Units.inchesToMeters(AMP_HEIGHT_INCHES);
+      public static final Pose2d POSE =
+          new Pose2d(new Translation2d(1.81, 8.11), new Rotation2d(-Math.PI / 2)); // isnt right
+      // new Pose2d(new Translation2d(1.84 ,8.2), new Rotation2D(-Math.PI/2));
+    }
+
+    public static final double INTAKE_MODE_HEIGHT_INCHES = 4.0;
+    public static final double INTAKE_MODE_HEIGHT_METERS =
+        Units.inchesToMeters(INTAKE_MODE_HEIGHT_INCHES);
+  }
+
 
   public static class Swerve {
     public static final Pose2d ROBOT_HALF_WIDTH =
