@@ -18,9 +18,45 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ArmCruise"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Line line numuber 9"
+            "pathName": "SPIN"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Line line number 8"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmCruise"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Free Parking"
           }
         }
       ]

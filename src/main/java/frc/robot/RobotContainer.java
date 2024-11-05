@@ -7,9 +7,13 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Auton.ArmToCruiseCmd;
 import frc.robot.commands.Auton.RatchetteDisengage;
+import frc.robot.commands.Auton.RunIntakeUntilDetection;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.PeterSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,6 +51,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = ExampleSubsystem.getInstance();
   private final ArmSubsystem armSubsystem = ArmSubsystem.getInstance();
+  private final PeterSubsystem peterSubsystem = PeterSubsystem.getInstance();
+  private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private Supplier<Boolean> redside = () -> redAlliance;
   private static boolean redAlliance;
 
@@ -88,7 +94,23 @@ public class RobotContainer {
     // This method loads the auto when it is called, however, it is recommended
     // to first load your paths/autos when code starts, then return the
     // pre-loaded auto/path
+
+    /* Auton plan:
+    - Assume starting at Blue position 2 (center)
+    1. Disengage Ratchette
+    2. Arm to "cruise" angle
+    3. Rotate 180 degrees
+    4. Intake Until De
+    6. Move forward to intake a note
+    7. Move toward speaker
+    8. Shoot in speaker
+    9. Arm to "cruise" angle
+    10. Move to parking spot
+    */
+
     NamedCommands.registerCommand("Ratchette", new RatchetteDisengage(armSubsystem));
+    NamedCommands.registerCommand("ArmCruise", new ArmToCruiseCmd(armSubsystem));
+    NamedCommands.registerCommand("Intake", new RunIntakeUntilDetection(peterSubsystem));
     return new PathPlannerAuto("Test Auto");
   }
 }
