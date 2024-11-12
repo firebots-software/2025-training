@@ -34,13 +34,13 @@ public class SwerveModuleSubsystem extends SubsystemBase {
         this.turningMotorReverse=turningMotorReverse;
         this.absoluteEncoderOffset=absoluteEncoderOffset;
 
-        driveMotor=new TalonFX(driveMotorID);
-        turnMotor= new TalonFX(turningMotorID);
+        driveMotor=new TalonFX(driveMotorID, "Patrice the Pineapple");
+        turnMotor= new TalonFX(turningMotorID, "Patrice the Pineapple");
         
         driveMotor.setInverted(driveMotorReverse);
         turnMotor.setInverted(turningMotorReverse);
 
-        turningEncoder=new CANcoder(canCoderID);
+        turningEncoder=new CANcoder(canCoderID, "Patrice the Pineapple");
     }
 
     public SwerveModuleState getState() {

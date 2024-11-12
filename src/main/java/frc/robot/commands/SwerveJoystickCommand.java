@@ -4,22 +4,37 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.SwerveSubsystem;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ShootCommand extends Command {
+public class SwerveJoystickCommand extends Command {
 
-  private Supplier<Double> speed;
-  private static ShooterSubsystem shooter; 
+  private final SwerveSubsystem swerveSubsystem;
+  private final Supplier<Double> xSupplier, ySupplier, turningSupplier, speedControl;
 
-  public ShootCommand(Supplier<Double> speed, ShooterSubsystem shooter) {
-    this.speed = speed;
-    this.shooter = shooter;
-    addRequirements();
+  private final SlewRateLimiter xLimiter;
+  private final SlewRateLimiter yLimiter;
+  private final SlewRateLimiter turnLimiter;
+
+  public SwerveJoystickCommand(SwerveSubsystem swerveSubsystem, Supplier<Double> xSupplier, Supplier<Double> ySupplier, Supplier<Double> turningSupplier, Supplier<Double> speedControl) {
+    this.swerveSubsystem = swerveSubsystem;
+    this.xSupplier = xSupplier;
+    this.ySupplier = ySupplier;
+    this.turningSupplier = turningSupplier;
+    this.speedControl = speedControl;
+
+    xLimiter = new SlewRateLimiter(Constants.SwerveCostants.maxDriveAcceleration);
+    yLimiter = new SlewRateLimiter(Constants.SwerveCostants.maxDriveAcceleration);
+    turnLimiter = new SlewRateLimiter(Constants.SwerveCostants.maxAngularAcceleration);
+    addRequirements(swerveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,14 +45,19 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shoot(speed.get());
+    double xSpeed = xSupplier.get();
+    double ySpeed = ySupplier.get();
+    double omega = turningSupplier.get();
 
+    ChassisSpeeds cs = new ChassisSpeeds(xSpeed, ySpeed, omega);
+
+    
+    swerveSubsystem.setModuleStates(Constants.SwerveCostants.m_Kinematics.toSwerveModuleStates(cs)); 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.stop();    
+  public void end(boolean interrupted) {  
   }
 
   // Returns true when the command should end.
@@ -46,7 +66,5 @@ public class ShootCommand extends Command {
     return false;
   }
 
-  public SwerveJoystickCommand(Supplier<Double> frontBackFunction, ) {
-
-  }
+  
 }

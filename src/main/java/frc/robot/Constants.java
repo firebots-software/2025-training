@@ -23,6 +23,11 @@ public final class Constants {
   public static class SwerveCostants {
     public static final int pigeonID = 40;
 
+    
+    public static final double maxDriveAcceleration = 4;
+    public static final double maxAngularAcceleration = 4;
+    
+
     public static final double moveCOMY = 0.046007;
     public static final double moveCOMX = 3.36044;
 
