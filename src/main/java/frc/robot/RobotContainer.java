@@ -5,13 +5,17 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commandGroups.IntakeAuton;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Auton.ArmToCruiseCmd;
+import frc.robot.commands.Auton.FireAuton;
 import frc.robot.commands.Auton.RatchetteDisengage;
 import frc.robot.commands.Auton.RunIntakeUntilDetection;
+import frc.robot.commands.PeterCommands.ShootNoWarmup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.JoystickSubsystem;
 import frc.robot.subsystems.PeterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,6 +31,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,6 +58,8 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = ArmSubsystem.getInstance();
   private final PeterSubsystem peterSubsystem = PeterSubsystem.getInstance();
   private final SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
+  private final GenericHID joystick = new GenericHID(0);
+  private final JoystickSubsystem joystickSubsystem = JoystickSubsystem.getInstance(joystick);
   private Supplier<Boolean> redside = () -> redAlliance;
   private static boolean redAlliance;
 
@@ -110,7 +117,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Ratchette", new RatchetteDisengage(armSubsystem));
     NamedCommands.registerCommand("ArmCruise", new ArmToCruiseCmd(armSubsystem));
-    NamedCommands.registerCommand("Intake", new RunIntakeUntilDetection(peterSubsystem));
+    NamedCommands.registerCommand("Intake", new IntakeAuton(peterSubsystem, armSubsystem, joystickSubsystem));
+    NamedCommands.registerCommand("Shoot", new FireAuton(peterSubsystem, armSubsystem, swerveSubsystem, .2));
     return new PathPlannerAuto("Test Auto");
   }
 }
