@@ -13,6 +13,7 @@ import dev.doglog.DogLog;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -61,11 +62,18 @@ public class Piper extends SubsystemBase {
   public boolean isNotesThere() {
     return noteSwitch.get();
   }
+
+  public static Piper piperInstance() {
+    if (piperInstance == null) {
+      piperInstance = new Piper();
+    }
+    return piperInstance;
+  }
   
   //Shooter Functions
   public void spinShooter(double speed) {
 
-    VelocityVoltage VV = new VelocityVoltage(speed * 1);
+    VelocityVoltage VV = new VelocityVoltage(speed);
 
     shooter1.setControl(VV);
     shooter2.setControl(VV);
@@ -130,7 +138,17 @@ public class Piper extends SubsystemBase {
   @Override
   public void periodic() {
     DogLog.log("IntakeMotor Speed", intakeMotor.get());
+    SmartDashboard.putNumber("IntakeMotor Speed", intakeMotor.get());
+    DogLog.log("FF Constant Value", FFConst);
+    SmartDashboard.putNumber("FF Constant Value", FFConst);
+  }
+
+  public void increaseFF() {
     FFConst += 0.5;
+  }
+
+  public void decreaseFF() {
+    FFConst -= 0.25;
   }
 
   //private int getSpeed(int Speed) {

@@ -32,7 +32,7 @@ public class Intake extends Command {
   @Override
   public void execute() {
     double speed = 1;
-    m_piper.spinShooter(speed);
+    //m_piper.spinShooter(speed);
     m_piper.spinIntake(speed);
     m_piper.spinPreShooter(speed);
   }
