@@ -139,6 +139,8 @@ public class Piper extends SubsystemBase {
   public void periodic() {
     DogLog.log("IntakeMotor Speed", intakeMotor.get());
     SmartDashboard.putNumber("IntakeMotor Speed", intakeMotor.get());
+    DogLog.log("IsNotePresent", isNotesThere());
+    SmartDashboard.putNumber("IntakeMotor Speed", isNotesThere());
     DogLog.log("FF Constant Value", FFConst);
     SmartDashboard.putNumber("FF Constant Value", FFConst);
   }
