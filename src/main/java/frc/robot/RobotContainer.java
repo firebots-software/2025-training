@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Intake;
+import frc.robot.commands.Shooter;
 import frc.robot.subsystems.Piper;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -32,6 +33,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     m_driverController.rightTrigger().whileTrue(new Intake(piper));
+    m_driverController.leftTrigger().whileTrue(new Shooter(piper));
     configureBindings();
   }
 
