@@ -118,7 +118,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Ratchette", new RatchetteDisengage(armSubsystem));
     NamedCommands.registerCommand("ArmCruise", new ArmToCruiseCmd(armSubsystem));
     NamedCommands.registerCommand("Intake", new IntakeAuton(peterSubsystem, armSubsystem, joystickSubsystem));
-    NamedCommands.registerCommand("Shoot", new FireAuton(peterSubsystem, armSubsystem, swerveSubsystem, .2));
+    NamedCommands.registerCommand("Shoot", new FireAuton(peterSubsystem, armSubsystem, swerveSubsystem, 10f));
     return new PathPlannerAuto("Test Auto");
   }
 }

@@ -10,6 +10,8 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import dev.doglog.DogLog;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -182,8 +184,8 @@ public class ArmSubsystem extends SubsystemBase {
   private double calculateAngleToSpeaker(Translation2d robotPosition) {
     double groundDistFromSpeaker =
         Constants.Landmarks.Speaker.POSE.getTranslation().getDistance(robotPosition);
-    SmartDashboard.putNumber("ground dist from speaker", groundDistFromSpeaker);
-    SmartDashboard.putNumber(
+    DogLog.log("ground dist from speaker", groundDistFromSpeaker);
+    DogLog.log(
         "angle from intermap", Constants.Arm.INTERMAP.get(groundDistFromSpeaker));
     return Constants.Arm.INTERMAP.get(groundDistFromSpeaker);
   }
@@ -245,32 +247,32 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     setPosition(targetDegrees);
-    SmartDashboard.putString(
+    DogLog.log(
         "ARM Command",
         this.getCurrentCommand() == null ? "none" : this.getCurrentCommand().getName());
-    SmartDashboard.putNumber("ARM Abs Enc Raw", revEncoder.getAbsolutePosition());
-    SmartDashboard.putNumber("ARM Abs Enc Func", getAbsolutePosition());
-    SmartDashboard.putNumber("ARM Integrated Rotations", getMotorPosRotations());
-    SmartDashboard.putNumber("ARM Integrated Current", master.getSupplyCurrent().getValue());
-    SmartDashboard.putNumber("ARM Integrated Error", master.getClosedLoopError().getValue());
-    SmartDashboard.putNumber("ARM Arm Rotations", getArmPosRotations());
-    SmartDashboard.putNumber("ARM Arm Degrees", getRawDegrees());
+    DogLog.log("ARM Abs Enc Raw", revEncoder.getAbsolutePosition());
+    DogLog.log("ARM Abs Enc Func", getAbsolutePosition());
+    DogLog.log("ARM Integrated Rotations", getMotorPosRotations());
+    DogLog.log("ARM Integrated Current", master.getSupplyCurrent().getValue());
+    DogLog.log("ARM Integrated Error", master.getClosedLoopError().getValue());
+    DogLog.log("ARM Arm Rotations", getArmPosRotations());
+    DogLog.log("ARM Arm Degrees", getRawDegrees());
 
-    SmartDashboard.putNumber("ARM Arm Degrees Corrected", getCorrectedDegrees());
-    SmartDashboard.putNumber("ARM Target Degrees", targetDegrees);
+    DogLog.log("ARM Arm Degrees Corrected", getCorrectedDegrees());
+    DogLog.log("ARM Target Degrees", targetDegrees);
     SmartDashboard.putString(
         "Current commannd ARM:",
         (getCurrentCommand() == null) ? "NULL" : getCurrentCommand().getName());
-    SmartDashboard.putNumber(
+    DogLog.log(
         "ARM Target Integrated Rots", calculateIntegratedTargetRots(targetDegrees));
-    SmartDashboard.putNumber(
+    DogLog.log(
         "ARM FeedForward Calculations", armff.calculate((2 * Math.PI * getRawDegrees()) / 360d, 0));
-    SmartDashboard.putNumber("Master Velocity", master.getVelocity().getValue());
-    SmartDashboard.putNumber(
+    DogLog.log("Master Velocity", master.getVelocity().getValue());
+    DogLog.log(
         "ARM Abs enc deg",
         Units.rotationsToDegrees(getAbsolutePosition() - Constants.Arm.ABSOLUTE_HORIZONTAL_OFFSET)
             / Constants.Arm.ABSOLUTE_ARM_CONVERSION_FACTOR);
-    SmartDashboard.putNumber("ARM updown adjustment", Constants.Arm.ARM_INTERMAP_OFFSET);
+    DogLog.log("ARM updown adjustment", Constants.Arm.ARM_INTERMAP_OFFSET);
 
     periodicSignalLogger();
   }

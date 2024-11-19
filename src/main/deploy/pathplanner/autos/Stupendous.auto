@@ -16,12 +16,6 @@
           "data": {
             "pathName": "Incredible"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Example Path"
-          }
         }
       ]
     }
