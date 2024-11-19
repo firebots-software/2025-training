@@ -31,7 +31,7 @@ public class Intake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = 1;
+    double speed = 90;
     //m_piper.spinShooter(speed);
     m_piper.spinIntake(speed);
     m_piper.spinPreShooter(speed);

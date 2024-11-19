@@ -32,7 +32,7 @@ public class Piper extends SubsystemBase {
     shooter1.setInverted(true);
     shooter2.setInverted(false);
 
-    Slot0Configs s0c = new Slot0Configs().withKP(0).withKI(0).withKD(0).withKG(0).withKV(0).withKA(0);
+    Slot0Configs s0c = new Slot0Configs().withKP(0.1).withKI(0).withKD(0).withKG(0).withKV(0).withKA(0);
     CurrentLimitsConfigs clc =
         new CurrentLimitsConfigs()
             .withStatorCurrentLimitEnable(true)
@@ -60,7 +60,7 @@ public class Piper extends SubsystemBase {
 
   }
   public boolean isNotesThere() {
-    return noteSwitch.get();
+    return !(noteSwitch.get());
   }
 
   public static Piper piperInstance() {
@@ -139,18 +139,18 @@ public class Piper extends SubsystemBase {
   public void periodic() {
     DogLog.log("IntakeMotor Speed", intakeMotor.get());
     SmartDashboard.putNumber("IntakeMotor Speed", intakeMotor.get());
-    DogLog.log("IsNotePresent", isNotesThere());
-    SmartDashboard.putNumber("IntakeMotor Speed", isNotesThere());
+    DogLog.log("IsNotePresent", !(noteSwitch.get()) ? 1:0);
+    SmartDashboard.putNumber("isnotepresent", !(noteSwitch.get()) ? 1:0);
     DogLog.log("FF Constant Value", FFConst);
     SmartDashboard.putNumber("FF Constant Value", FFConst);
   }
 
   public void increaseFF() {
-    FFConst += 0.5;
+    FFConst += 0.00001;
   }
 
   public void decreaseFF() {
-    FFConst -= 0.25;
+    FFConst -= 0.00001;
   }
 
   //private int getSpeed(int Speed) {
